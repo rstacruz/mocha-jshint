@@ -1,5 +1,8 @@
 var path = require('path');
-module.exports = function (paths) {
+module.exports = function (paths, args) {
+	if (typeof args === 'string') {
+		args = args.split(' ');
+	}
 	describe('jshint', function () {
 		paths = paths || ['.'];
 		paths.forEach(function (p) {
@@ -14,7 +17,7 @@ module.exports = function (paths) {
 				error.message = '';
 				error.stack = '';
 				var options = {
-					args: ['.'],
+					args: ['.'].concat(args || []),
 					verbose: true,
 					reporter: require('./reporter.js')(error)
 				};
